@@ -11,7 +11,8 @@ async function persist(again=true) {
   } else if (again === true) {
     alert("Storage persistance failed. Retrying...");
     persist(false);
-  }
+  } else {
+    alert("Storage persistanace failed.");
 }
 
 export default async function shared() {
