@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>if(/eruda=true/.test(window.location)||"true"==localStorage.getItem("active-eruda"))document.write('<script src="//cdn.jsdelivr.net/npm/eruda">\x3c/script>'),document.write("<script>eruda.init();\x3c/script>");</script>
+
+  <title>Loading... | JS-DOS Games</title>
+  <meta name="description" content="Free, unblocked DOS games for the browser. Made by sean-7777.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta property="og:url" content="https://js-dos-games.pages.dev/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="JS-DOS Games">
+  <meta property="og:description" content="Free, unblocked DOS games for the browser. Made by sean-7777.">
+  <meta property="og:image" content="/assets/og.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="js-dos-games.pages.dev">
+  <meta property="twitter:url" content="https://js-dos-games.pages.dev/">
+  <meta name="twitter:title" content="JS-DOS Games">
+  <meta name="twitter:description" content="Free, unblocked DOS games for the browser. Made by sean-7777.">
+  <meta name="twitter:image" content="/assets/og.png" />
+
+  <style>
+    html,
+    body,
+    #player {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <link rel="stylesheet" href="./assets/js-dos/js-dos.css">
+  <script src="./assets/js-dos/js-dos.js"></script>
+  <script type="module">
+    import shared from "./assets/shared.js";
+    await shared();
+
+    const games = await (await fetch("./assets/index.json")).json();
+    const gameId = location.hash.slice(1);
+    const player = document.querySelector("#player");
+
+    if (!games.find(game => game.id === gameId)) {
+      alert("Invalid game ID");
+      player.innerHTML = `<h1>There was an error, go <a style="color: blue" href="./">back</a>?</h1>`;
+      throw new Error("Invalid game ID");
+    }
+
+    emulators.pathPrefix = "./assets/js-dos/";
+    Dos(player, {
+      style: "hidden",
+      noSocialLinks: false,
+    }).run(`./assets/games/${gameId}`);
+
+    document.title = `${games.find(game => game.id === gameId).name} | JS-DOS Games`;
+  </script>
+</head>
+
+<body>
+  <div id="player"></div>
+</body>
+
+</html>
