@@ -13,6 +13,7 @@ async function persist(again=true) {
     persist(false);
   } else {
     alert("Storage persistanace failed.");
+  }
 }
 
 export default async function shared() {
